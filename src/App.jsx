@@ -1,12 +1,18 @@
 import { useEffect, useState, useRef } from 'react'
 import { Context } from './context';
-import {Routes, Route, Navigate} from "react-router-dom"
+import {Routes, Route, Navigate, useNavigate} from "react-router-dom"
 import Login from './components/auth/Login'
 import Register from "./components/auth/Register"
+import NavBar from './components/NavBar';
+import CreatePostForm from './components/CreatePostForm';
 function App() {
   
   const [user, setUser] = useState(null);  
   const apiLink = "http://localhost:3000";
+  const navigate = useNavigate();
+  const [createPostFormStatus, setCreatePostFormStatus] = useState(false)
+
+
 
   function convertToBase64(file){
     return new Promise((resolve, reject) => {
@@ -69,9 +75,11 @@ function App() {
   */
   
   return (
-    <Context.Provider value={{user, setUser, apiLink, google}}>
+    <Context.Provider value={{user, setUser, apiLink, google, navigate}}>
+        {user ? <NavBar setCreatePostFormStatus={setCreatePostFormStatus}/> : null}
+          {createPostFormStatus ? <CreatePostForm /> : null}
         <Routes>
-          <Route path="/" element={<>
+          <Route path="/" element={ user ? <>
                   Home
                   <br />
 
@@ -93,9 +101,12 @@ function App() {
 
                   <br />
                   {user ? <button onClick={() => {
-        window.open("http://localhost:3000/auth/logout", "_self");
+        window.open(`${apiLink}/auth/logout`, "_self");
       }}>Log out</button> : null}
-          </>} />
+          </>
+          :
+          <Navigate to="/login" />
+          } />
           <Route path="/login" element={user ? <Navigate to="/" /> : <Login />}/>
           <Route path="/register" element={user ? <Navigate to="/" /> : <Register />}/>
           <Route path="/post" element={user ? <h1>Post</h1> : <Navigate to="/login" />}/>
