@@ -100,8 +100,7 @@ form, nav {
   
 }
 
-form:not(.create-post-form) {
-  margin: 5%;
+form:not(.create-post-form) {  
   padding: 2rem;
   
 }
@@ -169,7 +168,9 @@ svg{
   margin-block: 2rem;
 }
 
-
+nav {
+  padding: 2rem;
+}
 
 nav li img , nav li svg{
   max-width: 2rem;
@@ -180,9 +181,7 @@ nav li svg {
   margin-inline: auto;
 }
 
-nav li {
-  padding: 2rem;
-}
+
 
 nav li:hover{
   cursor: pointer;
@@ -200,13 +199,12 @@ nav li:hover{
 nav ul {
   text-align: center;
   display: flex;
-  padding-inline: 1rem;
+  gap: 2rem;
   justify-content: space-around;
 }
 
 .logo {
-  align-items: center;
-  padding: 1rem;
+  align-items: center;  
   font-size: var(--fs-large);
   font-weight: 900;
   letter-spacing: .2rem;
@@ -222,12 +220,13 @@ nav ul {
   top: 0;
   position: absolute;
   display: flex;
-  justify-content: center;
+  justify-content: center; 
 }
 .create-post-form {
     z-index: 1111;
     padding: 1rem;
-    width: 100%;
+    min-width: 60%;
+    
     position: fixed;
     top: 20%;
     gap: 1rem;
@@ -251,16 +250,10 @@ nav ul {
   margin-bottom: 1rem;
 }
 
-.cpf-user-info {
-  align-items: center;
-  gap: 1rem;
+.cpf-user-info {  
   margin-bottom: 1rem;
   font-size: var(--fs-medium);
   font-weight: 600;
-}
-
-.cpf-user-info img {
-  max-width: 3rem;
 }
 
 .cpf-header svg:hover {
@@ -285,6 +278,155 @@ nav ul {
   padding: .1rem 2rem;
 }
 
+
+.btn-disabled {
+  opacity: .7;
+}
+
+.btn-disabled:hover {
+  cursor: not-allowed;
+}
+
+.auth-form {
+  max-width: 50rem;
+  margin-inline: auto;
+}
+
+.block {
+  padding: 1rem;
+  font-weight: 550;  
+}
+
+.block > *{
+  margin-bottom: 1rem;
+}
+
+.block-header {
+  display: flex;
+  gap: 1rem;
+  align-items: center;  
+  margin-bottom: .5rem;
+}
+
+.block-header img {
+  max-width: 3rem;
+}
+
+.block-header h1 {
+  font-size: var(--fs-medium);
+  font-weight: 600;
+}
+
+.block-header svg{
+    fill: var(--clr-primary);
+    max-width: 2.5rem;
+}
+
+.block-header h2 {
+  font-weight: 600;
+  opacity: .7;
+}
+
+.block, .block-create-post {
+  border-radius: .5rem;
+  background-color: white;  
+}
+
+.block-create-post {
+  padding: 1rem;
+}
+
+
+.block-create-post button {
+  width: 100%;
+}
+
+.block-create-post:hover  {
+  cursor: pointer;
+  opacity: .7;
+}
+
+.block-footer div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: .5rem;
+}
+
+.block-footer-info {
+  border-bottom: 1px solid lightgray;
+  padding-bottom: .5rem;
+}
+
+.block-footer h3, .block-footer button {
+  opacity: .7;
+}
+
+.block-footer button {
+  text-align: center;
+  flex-basis: 100%;
+  padding: .5rem 1rem;
+}
+
+.block-footer button:hover {
+  cursor: pointer;
+  opacity: .7;
+  background-color: var(--clr-primary);
+  color: white;
+}
+
+.active-comment:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.posts {
+  padding-block: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.comments {
+  border-top: 1px solid lightgray;
+  padding-top: .5rem;
+}
+
+.comment {
+  display: flex;
+}
+
+.comment img {
+  max-width: 3rem;
+  max-height: 3rem;
+}
+
+.comment-body {
+  flex-direction: column;
+  text-decoration: none;
+  background-color: var(--clr-accent);
+  padding: .5rem;
+  margin-left: .5rem;
+  border-radius: .5rem;
+}
+
+.comments h1 {
+  margin-block: 2rem;
+  opacity: .7;
+}
+
+.comment-body h2 {
+  font-weight: 650;
+}
+
+.comment-body p {
+  font-weight: 500;
+  padding: .5rem;
+}
+
+form .avatar {
+  max-width: 3rem;
+}
+
 @media (min-width: 40rem ) {
   nav {
     display: flex;
@@ -293,6 +435,19 @@ nav ul {
 
   .logo {
     display: flex;
+  }
+  .auth-form {
+    margin-top: 5rem;
+  }
+}
+
+@media (max-width: 40rem ) {
+  .create-post-form {
+    width: 100%;
+  }
+
+  .login-form {
+    height: 100vh;
   }
 }
 

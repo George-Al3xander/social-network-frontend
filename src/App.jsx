@@ -5,6 +5,7 @@ import Login from './components/auth/Login'
 import Register from "./components/auth/Register"
 import NavBar from './components/NavBar';
 import CreatePostForm from './components/CreatePostForm';
+import PostsHome from './components/posts/PostsHome';
 function App() {
   
   const [user, setUser] = useState(null);  
@@ -59,7 +60,7 @@ function App() {
 
   useEffect(() => {
     if(user) {
-      console.log(user)
+      //console.log(user)
     }
   }, [user])
 
@@ -69,41 +70,20 @@ function App() {
 
 
    <button onClick={() => {
-        window.open("http://localhost:3000/auth/logout", "_self");
+        window.open(`${apiLink}/auth/logout`, "_self");
       }}>Log out</button> -- logout btn
 
   */
+
+  
   
   return (
     <Context.Provider value={{user, setUser, apiLink, google, navigate}}>
         {user ? <NavBar setCreatePostFormStatus={setCreatePostFormStatus}/> : null}
-          {createPostFormStatus ? <CreatePostForm /> : null}
+          {createPostFormStatus ? <CreatePostForm setCreatePostFormStatus={setCreatePostFormStatus} /> : null}
         <Routes>
-          <Route path="/" element={ user ? <>
-                  Home
-                  <br />
-
-
-                  {/* <button onClick={async () => {
-                    const res =  await fetch(`${apiLink}/friendships/64d23f05ed3a908388d294f3`, {
-                      method: "POST",
-                       headers: {
-                          "Content-Type": "application/json",           
-                       },
-                      credentials: "include",                      
-                      // body: JSON.stringify({
-                      //   friendId: "64d0e6fcc726878d32489d1a"
-                      // })
-                    })
-                    const data = await res.json();
-                    console.log(data)
-                  }}>Click</button> */}
-
-                  <br />
-                  {user ? <button onClick={() => {
-        window.open(`${apiLink}/auth/logout`, "_self");
-      }}>Log out</button> : null}
-          </>
+          <Route path="/" element={ user ? 
+          <PostsHome setCreatePostFormStatus={setCreatePostFormStatus}/> 
           :
           <Navigate to="/login" />
           } />
@@ -111,9 +91,12 @@ function App() {
           <Route path="/register" element={user ? <Navigate to="/" /> : <Register />}/>
           <Route path="/post" element={user ? <h1>Post</h1> : <Navigate to="/login" />}/>
         </Routes> 
-
-        
-          
+          <br />
+        <button>Test btn</button>  
+        <br />  
+        <button onClick={() => {
+        window.open(`${apiLink}/auth/logout`, "_self");
+      }}>Log out</button>      
     </Context.Provider>
   )
 }

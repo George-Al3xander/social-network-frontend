@@ -14,7 +14,7 @@ const Login = () => {
 
     return (
       <div className="content">
-      <form action={`${apiLink}/auth/login`} method="POST" ref={form}>
+      <form className="auth-form login-form" action={`${apiLink}/auth/login`} method="POST" ref={form}>
         <legend>Log in</legend>
         <fieldset>
           <label htmlFor="email">Email</label>          

@@ -47,9 +47,8 @@ const Register = () => {
     }
     
     return (
-     <div className="content">
-      <div className="container">
-        <form onSubmit={register} ref={form}>
+     <div className="content">     
+        <form className="auth-form" onSubmit={register} ref={form}>
           <legend>Sign up</legend>
           <fieldset>
             <label htmlFor="email">Email</label>
@@ -85,8 +84,7 @@ const Register = () => {
               <Link to="/login">Log in</Link>
           </div>
         </form>
-      </div>
-     </div>
+      </div>     
     );
   };
   
