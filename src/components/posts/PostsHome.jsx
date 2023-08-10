@@ -14,8 +14,7 @@ const PostsHome = ({setCreatePostFormStatus}) => {
             "Content-Type": "application/json",
             "Access-Control-Allow-Credentials": true,
           },
-        })
-  
+        })  
         const data = await res.json();
         //console.log(data)
         setPosts(data.data)
@@ -26,7 +25,7 @@ const PostsHome = ({setCreatePostFormStatus}) => {
     return(
         <div className="container posts">
             <CreatePostBlock setCreatePostFormStatus={setCreatePostFormStatus} />
-            {posts.length > 0 ? posts.map((post) => {
+            {posts.length > 0 ? posts.slice(0).reverse().map((post) => {
                 return <Post post={post}/>
             }) : null}
         </div>

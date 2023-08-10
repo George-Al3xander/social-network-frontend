@@ -181,6 +181,9 @@ nav li svg {
   margin-inline: auto;
 }
 
+textarea {
+  word-wrap:break-word;   
+}
 
 
 nav li:hover{
@@ -403,14 +406,13 @@ nav ul {
 .comment-body {
   flex-direction: column;
   text-decoration: none;
-  background-color: var(--clr-accent);
-  padding: .5rem;
+  background-color: var(--clr-accent);  
   margin-left: .5rem;
   border-radius: .5rem;
 }
 
 .comments h1 {
-  margin-block: 2rem;
+  margin-block-end: 2rem;
   opacity: .7;
 }
 
@@ -420,13 +422,34 @@ nav ul {
 
 .comment-body p {
   font-weight: 500;
-  padding: .5rem;
 }
 
 form .avatar {
   max-width: 3rem;
+  max-height: 3rem;
 }
 
+.comment-form fieldset, .comment-body p, .comment-body{
+  padding: .5rem;
+}
+
+.comment-form fieldset{
+    flex-basis: 100%;
+    border: 1px solid var(--clr-secondary);
+}
+
+.comment-form button {
+  font-size: var(--fs-default);
+  margin-left: auto;  
+  padding: .5rem 2rem;
+  opacity: 1;
+}
+
+.comment-form {
+  flex-direction: row;
+  justify-content: flex-start;
+  padding-inline: 0 !important;
+}
 @media (min-width: 40rem ) {
   nav {
     display: flex;
