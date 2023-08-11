@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react"
 import { Context } from "../../context"
 import Comments from "../comments/Comments"
 import EditPostForm from "../EditPostForm"
-const Post = ({post}) => {    
+const Post = ({post, setPosts, posts}) => {    
     const [commentsStatus, setCommentsStatus] = useState(false)
     const [comments, setComments] = useState([]);
     const [menuStatus, setMenuStatus] = useState(false)
@@ -28,7 +28,7 @@ const Post = ({post}) => {
             console.log("Error")
         }
     }
-
+    
     const getLikes = async () => {
         const res = await fetch(`${apiLink}/posts/${post._id}/likes`, {
           method: "GET",
@@ -87,13 +87,34 @@ const Post = ({post}) => {
               console.log("Error")
           }
     }
+
+    const deletePost = async () => {
+        const res = await fetch(`${apiLink}/posts/${post._id}`, {
+            method: "DELETE",
+            credentials: "include",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Credentials": true,
+            },
+            })  
+            const data = await res.json();       
+            if(res.status == 200) {
+                setPosts(prev => [...prev.filter((postPrev) => {
+                    return postPrev._id != post._id
+                })])
+                setMenuStatus(false);
+            } else {
+                console.log(data)
+            }
+    }
     
 
     useEffect(() => {
         getComments();
         getLikes();
     },[])
-    return(<div className="block post">
+    return(<div key={post._id} className="block post">
         <div className="block-header">        
             <div className="block-header-info">
                 <img className="avatar" src={post.user.avatar ? post.user.avatar : defaultAvatar } alt="avatar" />
@@ -102,17 +123,21 @@ const Post = ({post}) => {
                     <h2>{moment(post.createdAt).format("ll")}</h2>
                 </div>
             </div> 
-            {post.user.id == user._id ? <svg onClick={() => {
+            {post.user.id == user._id ? 
+            <svg className="setting-svg" onClick={() => {
                 setMenuStatus(prev => !prev)
-            }} xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="M207.858-432Q188-432 174-446.142q-14-14.141-14-34Q160-500 174.142-514q14.141-14 34-14Q228-528 242-513.858q14 14.141 14 34Q256-460 241.858-446q-14.141 14-34 14Zm272 0Q460-432 446-446.142q-14-14.141-14-34Q432-500 446.142-514q14.141-14 34-14Q500-528 514-513.858q14 14.141 14 34Q528-460 513.858-446q-14.141 14-34 14Zm272 0Q732-432 718-446.142q-14-14.141-14-34Q704-500 718.142-514q14.141-14 34-14Q772-528 786-513.858q14 14.141 14 34Q800-460 785.858-446q-14.141 14-34 14Z"/></svg> : null}         
+            }} xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="M207.858-432Q188-432 174-446.142q-14-14.141-14-34Q160-500 174.142-514q14.141-14 34-14Q228-528 242-513.858q14 14.141 14 34Q256-460 241.858-446q-14.141 14-34 14Zm272 0Q460-432 446-446.142q-14-14.141-14-34Q432-500 446.142-514q14.141-14 34-14Q500-528 514-513.858q14 14.141 14 34Q528-460 513.858-446q-14.141 14-34 14Zm272 0Q732-432 718-446.142q-14-14.141-14-34Q704-500 718.142-514q14.141-14 34-14Q772-528 786-513.858q14 14.141 14 34Q800-460 785.858-446q-14.141 14-34 14Z"/></svg> 
+            : null}         
 
             {menuStatus ? 
-                <ul className="post-menu">
+                <ul className="hidden-menu post-menu">
                     <li onClick={() => {
                         showEditPostForm(post._id,post.text)
                         setMenuStatus(false)
                     }}>Edit post</li>
-                    <li>Delete post</li>
+                    <li
+                        onClick={deletePost}
+                    >Delete post</li>
                 </ul> 
                 
                 : null} 
@@ -143,12 +168,9 @@ const Post = ({post}) => {
                     setCommentsStatus((prev) => !prev)
                 }}>Comment</button>
             </div>
-                {commentsStatus ? <Comments post={post} setComments={setComments} comments={comments} /> : null
+                {commentsStatus ? <Comments post={post}  getComments={getComments} comments={comments} /> : null
             }            
-        </div>  
-        <button onClick={() => {
-             setEditPostFormStatus(true)
-        }}>Clclc</button>        
+        </div> 
     </div>)
 }
 

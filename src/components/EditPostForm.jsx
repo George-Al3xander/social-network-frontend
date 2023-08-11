@@ -15,7 +15,7 @@ const EditPostForm = ({setEditPostFormStatus}) => {
             setEditPostFormStatus(false)
         }
     }} className="background-create-post-form">
-        <form action={`${apiLink}/posts/${editPostFormValue.postId}`} method="PUT" className="create-post-form">
+        <form action={`${apiLink}/posts/${editPostFormValue.postId}`} method="POST"  className="create-post-form">
             <div className="cpf-header">
             <h1>Edit</h1>
             <svg onClick={() => {

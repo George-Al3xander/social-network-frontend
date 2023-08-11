@@ -26,7 +26,7 @@ const PostsHome = ({setCreatePostFormStatus}) => {
         <div className="container posts">
             <CreatePostBlock setCreatePostFormStatus={setCreatePostFormStatus} />
             {posts.length > 0 ? posts.slice(0).reverse().map((post) => {
-                return <Post post={post}/>
+                return <Post setPosts={setPosts} posts={posts} post={post}/>
             }) : null}
         </div>
     )

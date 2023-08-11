@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom"
 import { Context } from "../context"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import defaultAvatar from "../assets/default_avatar.jpg"
 
 const NavBar = ({setCreatePostFormStatus}) => {
-    const {user} = useContext(Context);
+    const {user, apiLink} = useContext(Context);
+    const [menuStatus, setMenuStatus] = useState(false)
     return (
         <nav>
 <div className="logo"><Link to={"/"}>TrendyTribe</Link></div>
@@ -19,9 +20,26 @@ const NavBar = ({setCreatePostFormStatus}) => {
             <li onClick={() => {
                 setCreatePostFormStatus(true)
             }}><svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="M453-280h60v-166h167v-60H513v-174h-60v174H280v60h173v166Zm27.266 200q-82.734 0-155.5-31.5t-127.266-86q-54.5-54.5-86-127.341Q80-397.681 80-480.5q0-82.819 31.5-155.659Q143-709 197.5-763t127.341-85.5Q397.681-880 480.5-880q82.819 0 155.659 31.5Q709-817 763-763t85.5 127Q880-563 880-480.266q0 82.734-31.5 155.5T763-197.684q-54 54.316-127 86Q563-80 480.266-80Z"/></svg>Post</li>
-            <li><img className="avatar" src={user.avatar ? user.avatar : defaultAvatar } alt="avatar" /> Me</li>
+            <li onClick={() => {
+                setMenuStatus(prev => !prev)
+            }}><img className="avatar" src={user.avatar ? user.avatar : defaultAvatar } alt="avatar" /> Me</li>
             
         </ul>
+        {menuStatus ? 
+                <ul className="hidden-menu user-menu">
+                    <li onClick={() => {
+                       
+                    }}><Link onClick={() => {
+                        setMenuStatus(false)
+                    }} to={"/settings"}><button>Settings</button></Link></li>
+                    <li  onClick={() => {
+                        window.open(`${apiLink}/auth/logout`, "_self");
+                      }}
+                       
+                    ><button >Logout</button></li>
+                </ul> 
+                
+                : null} 
         </nav>
     )
 } 

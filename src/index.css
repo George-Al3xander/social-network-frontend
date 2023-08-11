@@ -170,6 +170,7 @@ svg{
 
 nav {
   padding: 2rem;
+  position: relative;
 }
 
 nav li img , nav li svg{
@@ -407,7 +408,7 @@ nav ul {
 
 .comment {
   display: flex;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .comment img {
@@ -422,7 +423,24 @@ nav ul {
   margin-left: .5rem;
   border-radius: .5rem;
   width: min(15rem, 100%);
+  position: relative;
+}
 
+.comment-buttons {
+  position: absolute;
+  bottom: -35%;
+  right: 5%;
+  font-size: var(--fs-small);
+  display: flex;
+  gap: 1rem;
+}
+.comment-buttons button {
+  padding: 0;
+}
+.comment-buttons button:hover{
+  background-color: transparent;
+  color: var(--clr-primary);
+  text-decoration: underline;
 }
 
 .comments h1 {
@@ -469,16 +487,32 @@ form .avatar {
   position: relative;
 }
 
-.post-menu {
+.hidden-menu {
   position: absolute;
-  right: 20%;
-  top: 20%;
   background-color: white;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   padding: .5rem;
   border-radius: .5rem;
   font-weight: 500;
   z-index: 111;
+}
+
+.post-menu {
+  right: min(20%, 5rem);
+  top: 20%; 
+}
+
+.user-menu {
+  display: flex;
+  flex-direction: column;
+  right: 5%;
+  top: 90%;
+  gap: 0;
+}
+
+.user-menu  li {
+  padding: .5rem 1rem;
+  font-size: var(--fs-medium);
 }
 
 .post-menu li {
@@ -491,6 +525,26 @@ form .avatar {
   cursor: pointer;
 
   background-color: var(--clr-accent);
+}
+
+.comment-edit-form {
+  padding: 0 !important;
+}
+.comment-edit-form fieldset {
+  background-color: white;
+}
+.comment-edit-form {
+  flex-direction: column;
+  background-color: transparent;
+}
+
+.edit-form {
+  margin-top: 0 !important;
+}
+
+.edit-form .avatar {
+  max-width: 20%;
+  max-height: 20%;
 }
 
 @media (min-width: 40rem ) {

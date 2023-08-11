@@ -7,6 +7,7 @@ import NavBar from './components/NavBar';
 import CreatePostForm from './components/CreatePostForm';
 import PostsHome from './components/posts/PostsHome';
 import EditPostForm from './components/EditPostForm';
+import Settings from './components/Setting';
 function App() {
   
   const [user, setUser] = useState(null);  
@@ -15,21 +16,6 @@ function App() {
   const [createPostFormStatus, setCreatePostFormStatus] = useState(false)
   const [editPostFormStatus, setEditPostFormStatus] = useState(false)
   const [editPostFormValue, setEditPostFormValue] = useState({postId: "", text: ""})
-
-
-
-  function convertToBase64(file){
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result)
-      };
-      fileReader.onerror = (error) => {
-        reject(error)
-      }
-    })
-  }
 
   const google = (e) => {
     e.preventDefault();
@@ -95,15 +81,9 @@ function App() {
           <Navigate to="/login" />
           } />
           <Route path="/login" element={user ? <Navigate to="/" /> : <Login />}/>
-          <Route path="/register" element={user ? <Navigate to="/" /> : <Register />}/>
-          <Route path="/post" element={user ? <h1>Post</h1> : <Navigate to="/login" />}/>
+          <Route path="/register" element={user ? <Navigate to="/" /> : <Register />}/>          
+          <Route path="/settings" element={user ? <Settings /> : <Navigate to="/login" />}/>
         </Routes> 
-          <br />
-        <button>Test btn</button>  
-        <br />  
-        <button onClick={() => {
-        window.open(`${apiLink}/auth/logout`, "_self");
-      }}>Log out</button>      
     </Context.Provider>
   )
 }

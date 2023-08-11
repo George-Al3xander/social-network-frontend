@@ -3,7 +3,7 @@ import { useContext, useState } from "react"
 import defaultAvatar from "../../assets/default_avatar.jpg"
 
 
-const CreateCommentForm = ({post, setComments}) => {
+const CreateCommentForm = ({post, getComments}) => {
     const [commentText, setCommentsText] = useState("")
     const {user, apiLink} = useContext(Context);
     const valid = new RegExp(/\S/);
@@ -26,7 +26,7 @@ const CreateCommentForm = ({post, setComments}) => {
         
         console.log(data)
         if(res.status == 200) {
-            setComments(prev => [...prev, {user, text: commentText}])
+            getComments();
             setValidStatus(false);
             e.target.reset();
         }

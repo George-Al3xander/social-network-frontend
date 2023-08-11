@@ -4,16 +4,16 @@ import CreateCommentForm from "./CreateCommentForm";
 
 
 
-const Comments = ({comments, post, setComments}) => {    
+const Comments = ({comments, post, getComments}) => {    
     
     return(
         <ul className="comments">
-                <CreateCommentForm setComments={setComments} post={post} />           
+                <CreateCommentForm getComments={getComments} post={post} />           
                 {comments.length > 0 ?
                  <>
                     <h1>All comments</h1>
                     {comments.slice(0).reverse().map((comment) => {
-                        return <Comment comment={comment} />
+                        return <Comment getComments={getComments} comment={comment} />
                     })}
                 </> : null}
         </ul>
