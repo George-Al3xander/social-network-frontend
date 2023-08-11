@@ -4,22 +4,22 @@ import defaultAvatar from "../assets/default_avatar.jpg"
 
 
 
-const CreatePostForm = ({setCreatePostFormStatus}) => {
-    const {user, apiLink} = useContext(Context);
+const EditPostForm = ({setEditPostFormStatus}) => {
+    const {user, apiLink, editPostFormValue} = useContext(Context);
     const valid = new RegExp(/\S/);
-    const [validStatus, setValidStatus] = useState(false)
+    const [validStatus, setValidStatus] = useState(true)
 
     
     return (<div onClick={(e) => {
         if(e.target.className === "background-create-post-form") {
-            setCreatePostFormStatus(false)
+            setEditPostFormStatus(false)
         }
     }} className="background-create-post-form">
-        <form action={`${apiLink}/posts`} method="POST" className="create-post-form">
+        <form action={`${apiLink}/posts/${editPostFormValue.postId}`} method="PUT" className="create-post-form">
             <div className="cpf-header">
-            <h1>Create a post</h1>
+            <h1>Edit</h1>
             <svg onClick={() => {
-                setCreatePostFormStatus(false)
+                setEditPostFormStatus(false)
             }} xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"/></svg>
             </div>
             <div className="cpf-user-info block-header-info">
@@ -30,14 +30,14 @@ const CreatePostForm = ({setCreatePostFormStatus}) => {
             <fieldset>
                 <textarea  onChange={(e) => {
                     setValidStatus(valid.test(e.target.value))
-                }} placeholder="Tell the world something!...Come on, I'm serious" rows={6} name="text" id="" ></textarea>
+                }} placeholder="Tell the world something!...Come on, I'm serious" rows={6} name="text" id="" >{editPostFormValue.text}</textarea>
             </fieldset>
 
             <div className="cpf-footer">
-                {validStatus ? <button>Post</button> : <button className="btn-disabled" disabled>Post</button>}
+                {validStatus ? <button>Save</button> : <button className="btn-disabled" disabled>Save</button>}
             </div>
         </form>
     </div>)
 }
 
-export default CreatePostForm
+export default EditPostForm

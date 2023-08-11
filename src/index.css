@@ -65,7 +65,7 @@ body {
 }
 
 .container {
-  width: min(90%, 70rem);
+  width: min(90%, 40rem);
   margin-inline: auto;
 }
 
@@ -221,15 +221,15 @@ nav ul {
   width: 100%;
   height: 100vh;
   top: 0;
-  position: absolute;
+  z-index: 1111;
+  position: fixed;
   display: flex;
   justify-content: center; 
 }
 .create-post-form {
-    z-index: 1111;
+    z-index: 11111;
     padding: 1rem;
-    min-width: 60%;
-    
+    min-width: 60%;    
     position: fixed;
     top: 20%;
     gap: 1rem;
@@ -249,8 +249,7 @@ nav ul {
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid lightgray;
-  padding-bottom: 1rem;
-  margin-bottom: 1rem;
+  padding-bottom: 1rem;  
 }
 
 .cpf-user-info {  
@@ -304,7 +303,14 @@ nav ul {
   margin-bottom: 1rem;
 }
 
+
 .block-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.block-header-info, .block-create-post button {
   display: flex;
   gap: 1rem;
   align-items: center;  
@@ -315,17 +321,17 @@ nav ul {
   max-width: 3rem;
 }
 
-.block-header h1 {
+.block-header h1, .block-create-post button h1 {
   font-size: var(--fs-medium);
   font-weight: 600;
 }
 
-.block-header svg{
+.block-header svg , .block-create-post button svg{
     fill: var(--clr-primary);
     max-width: 2.5rem;
 }
 
-.block-header h2 {
+.block-header h2 , .block-create-post button h2{
   font-weight: 600;
   opacity: .7;
 }
@@ -339,6 +345,11 @@ nav ul {
   padding: 1rem;
 }
 
+.block-header svg:hover {
+  background-color: var(--clr-accent);
+  border-radius: .3rem;
+  cursor: pointer;
+}
 
 .block-create-post button {
   width: 100%;
@@ -396,6 +407,7 @@ nav ul {
 
 .comment {
   display: flex;
+  margin-bottom: 1rem;
 }
 
 .comment img {
@@ -409,6 +421,8 @@ nav ul {
   background-color: var(--clr-accent);  
   margin-left: .5rem;
   border-radius: .5rem;
+  width: min(15rem, 100%);
+
 }
 
 .comments h1 {
@@ -450,6 +464,35 @@ form .avatar {
   justify-content: flex-start;
   padding-inline: 0 !important;
 }
+
+.post {
+  position: relative;
+}
+
+.post-menu {
+  position: absolute;
+  right: 20%;
+  top: 20%;
+  background-color: white;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: .5rem;
+  border-radius: .5rem;
+  font-weight: 500;
+  z-index: 111;
+}
+
+.post-menu li {
+  padding: 1rem;
+  border-radius: .5rem;
+
+}
+
+.post-menu li:hover {
+  cursor: pointer;
+
+  background-color: var(--clr-accent);
+}
+
 @media (min-width: 40rem ) {
   nav {
     display: flex;

@@ -6,12 +6,15 @@ import Register from "./components/auth/Register"
 import NavBar from './components/NavBar';
 import CreatePostForm from './components/CreatePostForm';
 import PostsHome from './components/posts/PostsHome';
+import EditPostForm from './components/EditPostForm';
 function App() {
   
   const [user, setUser] = useState(null);  
   const apiLink = "http://localhost:3000";
   const navigate = useNavigate();
   const [createPostFormStatus, setCreatePostFormStatus] = useState(false)
+  const [editPostFormStatus, setEditPostFormStatus] = useState(false)
+  const [editPostFormValue, setEditPostFormValue] = useState({postId: "", text: ""})
 
 
 
@@ -58,11 +61,14 @@ function App() {
     getUser();
   }, []);
 
-  useEffect(() => {
-    if(user) {
-      //console.log(user)
-    }
-  }, [user])
+  const showEditPostForm = (id, text) => {
+    setEditPostFormValue({postId: id,text});
+    setEditPostFormStatus(true)
+  }
+
+
+  
+
 
   /* <button onClick={() => {
      window.open("http://localhost:3000/auth/google", "_self")
@@ -78,9 +84,10 @@ function App() {
   
   
   return (
-    <Context.Provider value={{user, setUser, apiLink, google, navigate}}>
+    <Context.Provider value={{user, setUser, apiLink, google, navigate, setEditPostFormStatus, editPostFormValue, showEditPostForm}}>
         {user ? <NavBar setCreatePostFormStatus={setCreatePostFormStatus}/> : null}
           {createPostFormStatus ? <CreatePostForm setCreatePostFormStatus={setCreatePostFormStatus} /> : null}
+          {editPostFormStatus ? <EditPostForm setEditPostFormStatus={setEditPostFormStatus} /> : null}
         <Routes>
           <Route path="/" element={ user ? 
           <PostsHome setCreatePostFormStatus={setCreatePostFormStatus}/> 
