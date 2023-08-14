@@ -27,16 +27,23 @@ const Settings = () => {
     const form = useRef();
     const handleFileUpload = async (e) => {
       const file = e.target.files[0];
-      const base64 = await convertToBase64(file);
       //console.log(base64)
-      setDisplayAvatar(base64)
+      if(file.size < 2097152) {
+        const base64 = await convertToBase64(file);
+        if(base64.length < 2097152) {
+          setDisplayAvatar(base64)
+        } else {
+        alert("Image must be less than 5 MB")
+        }        
+      } else  {
+        alert("Image must be less than 5 MB")
+      }
     }
 
 
     const editUser = async (e) => {
       e.preventDefault();
-      const formData = new FormData(form.current);
-      console.log(formData.get("password"))
+      const formData = new FormData(form.current);      
       const name = {
         first: formData.get("name-first").trim(),
         last: formData.get("name-last").trim()
@@ -44,9 +51,9 @@ const Settings = () => {
       const email = formData.get("email").trim();
       let updateObj = {        
       }
-      if(displayAvatar != user.avatar) {
-        updateObj = {...updateObj, avatar: displayAvatar}
-      }
+      // if(displayAvatar != user.avatar) {
+      //   updateObj = {...updateObj, avatar: displayAvatar}
+      // }
       if(email != user.email) {
         updateObj = {...updateObj, email}
       }
@@ -72,22 +79,20 @@ const Settings = () => {
             "Content-Type": "application/json",
             "Access-Control-Allow-Credentials": true,
           },
-          body: JSON.stringify({...updateObj, password: formData.get("password")})
+          body: JSON.stringify(updateObj)
         })
-
+        //{...updateObj, password: formData.get("password")}
         console.log(res)
         const data = await res.json();
         if(res.status == 200) {
-          console.log(data)
           setErrorMsg("")
           getUser();
         } else {
           setErrorMsg(data.msg)
         }
+        console.log(data)
 
-      } 
-      
-      console.log(updateObj)
+      }      
     }
 
     return(
@@ -127,10 +132,10 @@ const Settings = () => {
             }} defaultValue={user.name.last} required name="name-last" id="name-last" type="text" />
             {!lastNameStatus ? <div className="msg-error"><h3>Can't be a blank</h3></div> : null}
           </fieldset>          
-           <fieldset>
+           {/* <fieldset>
             <label htmlFor="password-confirm">Confirm password</label>
             <input required name="password" id="password-confirm" type="password" />
-          </fieldset>        
+          </fieldset>         */}
           <div className="buttons">
             {!emailStatus || !firstNameStatus || !lastNameStatus 
             
@@ -140,7 +145,7 @@ const Settings = () => {
             : 
             <button>Save changes</button> }           
           </div>          
-        </form>
+        </form>        
         </div>
     )
 }

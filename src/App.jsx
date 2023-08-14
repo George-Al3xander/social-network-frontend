@@ -8,6 +8,7 @@ import CreatePostForm from './components/CreatePostForm';
 import PostsHome from './components/posts/PostsHome';
 import EditPostForm from './components/EditPostForm';
 import Settings from './components/Setting';
+import Friends from './components/friends/Friends';
 function App() {
   
   const [user, setUser] = useState(null);  
@@ -37,6 +38,7 @@ function App() {
         throw new Error("authentication has been failed!");
       })
       .then((resObject) => {
+        console.log(resObject.user)
         setUser(resObject.user);
       })
       .catch((err) => {
@@ -84,6 +86,7 @@ function App() {
           <Route path="/login" element={user ? <Navigate to="/" /> : <Login />}/>
           <Route path="/register" element={user ? <Navigate to="/" /> : <Register />}/>          
           <Route path="/settings" element={user ? <Settings /> : <Navigate to="/login" />}/>
+          <Route path="/friends" element={user ? <Friends /> : <Navigate to="/login" />}/>
         </Routes> 
     </Context.Provider>
   )
