@@ -27,11 +27,13 @@ const NavBar = ({setCreatePostFormStatus}) => {
         </ul>
         {menuStatus ? 
                 <ul className="hidden-menu user-menu">
-                    <li onClick={() => {
-                       
-                    }}><Link onClick={() => {
+                    <Link onClick={() => {
                         setMenuStatus(false)
-                    }} to={"/settings"}><button>Settings</button></Link></li>
+                    }} to={"/settings"}>
+                    <li>
+                    <button>Settings</button>                    
+                    </li>
+                    </Link>
                     <li  onClick={() => {
                         window.open(`${apiLink}/auth/logout`, "_self");
                       }}

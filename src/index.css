@@ -543,8 +543,22 @@ form .avatar {
 }
 
 .edit-form .avatar {
-  max-width: 20%;
-  max-height: 20%;
+  max-width: 40%;
+  max-height: 40%;
+}
+
+.fieldset-avatar svg {
+  fill: var(--clr-primary);
+}
+
+.fieldset-avatar svg:hover {
+  fill: var(--clr-accent-dark);
+  cursor: pointer;
+}
+
+.fieldset-avatar span {
+  display: flex;
+  gap: 2rem;
 }
 
 @media (min-width: 40rem ) {
