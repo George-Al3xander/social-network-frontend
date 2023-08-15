@@ -1,16 +1,15 @@
 import defaultAvatar from "../../assets/default_avatar.jpg"
 import moment from "moment"
-import Comment from "../comments/Comment"
 import { useContext, useEffect, useState } from "react"
 import { Context } from "../../context"
 import Comments from "../comments/Comments"
-import EditPostForm from "../EditPostForm"
+import { Link } from "react-router-dom"
 const Post = ({post, setPosts, posts}) => {    
     const [commentsStatus, setCommentsStatus] = useState(false)
     const [comments, setComments] = useState([]);
     const [menuStatus, setMenuStatus] = useState(false)
     const [likes, setLikes] = useState({});
-    const {apiLink, user, setEditPostFormStatus, showEditPostForm} = useContext(Context)
+    const {apiLink, user,  showEditPostForm} = useContext(Context)
     const getComments = async () => {
         const res = await fetch(`${apiLink}/posts/${post._id}/comments`, {
           method: "GET",
@@ -117,9 +116,11 @@ const Post = ({post, setPosts, posts}) => {
     return(<div key={post._id} className="block post">
         <div className="block-header">        
             <div className="block-header-info">
-                <img className="avatar" src={post.user.avatar ? post.user.avatar : defaultAvatar } alt="avatar" />
+                <Link to={`/profile/${post.user.id}`}><img className="avatar" src={post.user.avatar ? post.user.avatar : defaultAvatar } alt="avatar" /></Link>
                 <div>
-                    <h1>{`${post.user.name.first} ${post.user.name.last}`}</h1>
+                    <Link to={`/profile/${post.user.id}`}>
+                        <h1>{`${post.user.name.first} ${post.user.name.last}`}</h1>
+                    </Link>
                     <h2>{moment(post.createdAt).format("ll")}</h2>
                 </div>
             </div> 

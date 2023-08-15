@@ -1,6 +1,6 @@
 import FriendsAll from "./FriendsAll";
 import FriendsMenuDesktop from "./menus/FriendsMenuDesktop"
-import {Routes, Route, Navigate, useNavigate} from "react-router-dom";
+import {Routes, Route, Navigate, useNavigate, Outlet} from "react-router-dom";
 
 
 
@@ -8,11 +8,9 @@ import {Routes, Route, Navigate, useNavigate} from "react-router-dom";
 const Friends = () => {
 
 
-    return(<div>
-        <FriendsMenuDesktop />
-        <Routes>
-            <Route path={"/friends/all"} element={<FriendsAll />}/>
-        </Routes>
+    return(<div className="friends-parent-block">
+            <FriendsMenuDesktop />
+            <Outlet />
     </div>)
 }
 

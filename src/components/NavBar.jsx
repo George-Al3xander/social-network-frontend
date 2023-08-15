@@ -7,7 +7,7 @@ const NavBar = ({setCreatePostFormStatus}) => {
     const {user, apiLink} = useContext(Context);
     const [menuStatus, setMenuStatus] = useState(false)
     return (
-        <nav>
+        <nav className="main-navbar">
 <div className="logo"><Link to={"/"}>TrendyTribe</Link></div>
         <ul>
             <Link to="/">
@@ -27,6 +27,13 @@ const NavBar = ({setCreatePostFormStatus}) => {
         </ul>
         {menuStatus ? 
                 <ul className="hidden-menu user-menu">
+                    <Link onClick={() => {
+                        setMenuStatus(false)
+                    }} to={`/profile/${user._id}`}>
+                    <li>
+                    <button>View profile</button>                    
+                    </li>
+                    </Link>
                     <Link onClick={() => {
                         setMenuStatus(false)
                     }} to={"/settings"}>

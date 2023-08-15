@@ -59,14 +59,13 @@ body {
   background-color: var(--clr-accent);
 }
 
-
 #root, .content {
   width: 100%;
 }
 
 .container {
   width: min(90%, 40rem);
-  margin-inline: auto;
+  margin-inline: auto; 
 }
 
 form, fieldset, nav li {
@@ -171,6 +170,7 @@ svg{
 nav {
   padding: 2rem;
   position: relative;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 nav li img , nav li svg{
@@ -559,6 +559,72 @@ form .avatar {
 .fieldset-avatar span {
   display: flex;
   gap: 2rem;
+}
+
+.active {
+  background-color: var(--clr-accent);
+  border-radius: .5rem;
+
+}
+
+.friends-parent-block, .friends-menu-desktop {
+  display: flex;
+}
+
+.friends-menu-desktop {
+  width: 40%;    
+  position: fixed;
+  height: 100%;  
+}
+
+.friends-menu-desktop svg {
+  margin: 0;
+}
+
+.friends-menu-desktop ul {
+  flex-direction: column;
+  width: 100%;
+  justify-content: flex-start;
+  font-size: var(--fs-medium);
+  gap: 1rem;
+}
+
+.friends-menu-desktop ul li:hover {
+  opacity: 1;
+}
+
+.friends-menu-desktop ul li{
+  flex-direction: row;
+  align-items: center;
+  font-weight: 700;
+  gap: 1rem;
+  justify-content: flex-start;
+  padding-inline: .5rem;
+  width: 100%;
+  border-radius: .5rem;
+}
+
+.main-navbar {
+  position: sticky;
+  width: 100%;
+  z-index: 11;
+  top: 0;
+}
+
+.friends-menu-desktop h1 {
+  font-size: var(--fs-big);
+  font-weight: 700;
+  text-align: left;
+}
+
+.container-friends {
+  margin-left: 45%;
+  margin-top: 5%;
+}
+
+.comment h2:hover, .post h1:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 @media (min-width: 40rem ) {

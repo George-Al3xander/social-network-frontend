@@ -2,6 +2,7 @@ import defaultAvatar from "../../assets/default_avatar.jpg"
 import moment from "moment"
 import { Context } from "../../context"
 import { useContext, useState } from "react"
+import { Link } from "react-router-dom"
 const Comment = ({comment, getComments}) => {   
     const [editStatus, setEditStatus] = useState(false) 
     const valid = new RegExp(/\S/);
@@ -57,9 +58,11 @@ const Comment = ({comment, getComments}) => {
     }
 
     return(<li key={comment._id} className="comment">
-        <img className="avatar" src={comment.user.avatar ? comment.user.avatar : defaultAvatar } alt="avatar" />
+        <Link to={`/profile/${user._id}`}><img className="avatar" src={comment.user.avatar ? comment.user.avatar : defaultAvatar } alt="avatar" /></Link>
         <div className="comment-body">
-            <div><h2>{`${comment.user.name.first} ${comment.user.name.last}`}</h2> <h3>{moment(comment.createdAt).format("ll")}</h3></div>
+            <div><Link to={`/profile/${user._id}`}>
+                <h2>{`${comment.user.name.first} ${comment.user.name.last}`}</h2>
+            </Link> <h3>{moment(comment.createdAt).format("ll")}</h3></div>
             {editStatus ? 
             <form onSubmit={editComment} className="comment-form comment-edit-form">           
             <fieldset>
@@ -68,8 +71,7 @@ const Comment = ({comment, getComments}) => {
                         setCommentsText(e.target.value)
                 }  
                 setValidStatus(valid.test(e.target.value))
-                }} 
-                                placeholder="Add a comment" rows={2} name="text" id="" >{comment.text}</textarea>
+                }} placeholder="Add a comment" rows={2} name="text" id="" >{comment.text}</textarea>
             </fieldset>
                 {(validStatus && commentText !== comment.text) ? 
                 <button>Save</button> : null}
