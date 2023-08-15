@@ -99,7 +99,7 @@ function App() {
           </Route>
 
           <Route path='/profile/:id' element={user ? <Profile /> : <Navigate to="/login" />} >
-              <Route path={""} element={<ProfileHome />} />
+              <Route path={""} element={<ProfileHome setCreatePostFormStatus={setCreatePostFormStatus}/>} />
               <Route path={"friends"} element={<ProfileFriends />} />
           </Route>
         </Routes> 

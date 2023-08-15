@@ -29,18 +29,23 @@ const FriendsSearch = () => {
     },[searchKey])
 
     return(<div className="container container-friends">
-            <input onChange={(e) => {
+            <input className="user-search-input" onChange={(e) => {
                 setSearchKey(e.target.value)
             }} placeholder="Looking for someone?" type="text" />
 
-            {results.length > 0 ? 
-            blankValid.test(searchKey) ?
-            results.map((res) => {
-                return <ProfilePreview profile={res}/>
-            }) 
-            : null
-            : null
-            }
+            <div className="list-friends">
+                <h1>Search results</h1>
+                    <ul className="list-friends-results">
+                        {results.length > 0 ? 
+                        blankValid.test(searchKey) ?
+                        results.map((res) => {
+                            return <ProfilePreview profile={res}/>
+                        }) 
+                        : <h1>No results</h1>
+                        : <h1>No results</h1>
+                        }
+                    </ul>
+            </div>
     </div>)
 }
 

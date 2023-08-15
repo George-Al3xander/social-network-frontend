@@ -29,14 +29,19 @@ const Profile = () => {
             getUser();
         }
     }, [id])
-    return(<div className="container profile">
+    return(
+    <>
         {Object.keys(displayUser).length > 0 ?
         <ProfileHeader user={displayUser} />
         :
         null
-        }
+        }     
         <Outlet />
-    </div>)
+    </>
+    
+    
+   
+    )
 }
 
 export default Profile
