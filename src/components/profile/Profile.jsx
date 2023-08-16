@@ -20,7 +20,9 @@ const Profile = () => {
         })
 
         const data = await res.json();
-        setDisplayUser(data.user)
+        if(res.status == 200) {
+            setDisplayUser(data.user)
+        }
     }
     useEffect(() => {
         if(id == user._id) {
@@ -32,11 +34,13 @@ const Profile = () => {
     return(
     <>
         {Object.keys(displayUser).length > 0 ?
+        <>
         <ProfileHeader user={displayUser} />
-        :
-        null
-        }     
         <Outlet />
+        </>
+        :
+        <h1 className="msg-error">Unable to load Profile</h1>
+        }     
     </>
     
     

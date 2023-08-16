@@ -5,7 +5,6 @@ import { Context } from "../../context"
 import FriendBtn from "../friends/FriendBtn"
 
 const ProfilePreviewFriend = ({profile}) => {
-      
 
   
 

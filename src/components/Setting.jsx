@@ -51,9 +51,9 @@ const Settings = () => {
       const email = formData.get("email").trim();
       let updateObj = {        
       }
-      // if(displayAvatar != user.avatar) {
-      //   updateObj = {...updateObj, avatar: displayAvatar}
-      // }
+      if(displayAvatar != user.avatar) {
+        updateObj = {...updateObj, avatar: displayAvatar}
+      }
       if(email != user.email) {
         updateObj = {...updateObj, email}
       }

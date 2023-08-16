@@ -196,6 +196,7 @@ nav li:hover{
 
 .avatar {
   border-radius: 50%;
+  object-fit: cover;
   aspect-ratio: 1 / 1 ;
 }
 
@@ -827,6 +828,11 @@ form .avatar {
 
 .profile-preview-friend h2:hover {
   text-decoration: underline;
+  cursor: pointer;
+}
+
+.logo:hover {
+  opacity: .7;
   cursor: pointer;
 }
 

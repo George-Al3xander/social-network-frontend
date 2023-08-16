@@ -44,7 +44,7 @@ function App() {
         throw new Error("authentication has been failed!");
       })
       .then((resObject) => {
-        //console.log(resObject.user)
+        console.log(resObject.user)
         setUser(resObject.user);
       })
       .catch((err) => {
@@ -60,23 +60,6 @@ function App() {
     setEditPostFormValue({postId: id,text});
     setEditPostFormStatus(true)
   }
-
-
-  
-
-
-  /* <button onClick={() => {
-     window.open("http://localhost:3000/auth/google", "_self")
-   }}>Login</button> -- google login button
-
-
-   <button onClick={() => {
-        window.open(`${apiLink}/auth/logout`, "_self");
-      }}>Log out</button> -- logout btn
-
-  */
-
-  
   
   return (
     <Context.Provider value={{user, setUser, apiLink, google, navigate, setEditPostFormStatus, editPostFormValue, showEditPostForm, getUser}}>
