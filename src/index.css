@@ -660,7 +660,9 @@ form .avatar {
   gap: 2rem;
   background-color: white;
 }
-
+.profile-info button {
+  margin-left: auto;
+}
 .profile-info h1 {
   font-weight: 700;
   font-size: var(--fs-large);
@@ -693,17 +695,30 @@ form .avatar {
   align-items: center;
   gap: 1rem;
   border-bottom: 1px solid lightgray;
-
 }
 
 .profile-preview h2 {
   font-family: 700;
-  font-size: var(--fs-medium);
+  font-size: var(--fs-big);
+  margin-bottom: .7rem;
 }
 
-.profile-preview img {
+.profile-preview h2:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.profile-preview .link-avatar:hover {
+  opacity: .9;
+  cursor: pointer;
+
+}
+
+.profile-preview .link-avatar {
   width: 20%;
 }
+
+
 
 .friends-menu-mobile {
   background-color: transparent;
@@ -714,6 +729,7 @@ form .avatar {
 .friends-menu-mobile ul {
   justify-content: flex-start;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .friends-menu-mobile a {
@@ -768,7 +784,21 @@ form .avatar {
   margin-top: 1rem;
 }
 
+.btn-friend {
+  background-color: var(--clr-primary);  
+  font-weight: 600;
+  font-size: var(--fs-medium);
+  color: white;
+  padding: 0 2rem;
+  width:10rem;
+  text-align: center;
+  white-space: nowrap;
+}
 
+.btn-friend:hover {
+  cursor: pointer;
+  opacity: .7;
+}
 
 
 @media (min-width: 40rem ) {
@@ -823,7 +853,21 @@ form .avatar {
   .container-friends {
     margin-inline: auto;    
   }
+
+  .profile-info {
+    flex-direction: column;
+  }
+
+  .profile-info button {
+    margin: auto;
+  }
 }
+
+/* @media (max-width: 28rem) {
+  .friends-menu-mobile li {  
+    padding: .5rem;
+  }
+} */
 
 
 

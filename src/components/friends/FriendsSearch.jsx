@@ -1,6 +1,5 @@
 import { Context } from "../../context"
 import { useState, useContext, useEffect } from "react"
-import defaultAvatar from "../../assets/default_avatar.jpg"
 import ProfilePreview from "../profile/ProfilePreview";
 const FriendsSearch = () => {
     const blankValid = new RegExp(/\S/);

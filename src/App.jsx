@@ -18,7 +18,7 @@ import Profile from './components/profile/Profile';
 function App() {
   
   const [user, setUser] = useState(null);  
-  const apiLink = "http://localhost:3000";
+  const apiLink = "http://192.168.0.111:3000";
   const navigate = useNavigate();
   const [createPostFormStatus, setCreatePostFormStatus] = useState(false)
   const [editPostFormStatus, setEditPostFormStatus] = useState(false)

@@ -7,7 +7,7 @@ const Profile = () => {
     const {user, apiLink} = useContext(Context)
 
     const [displayUser, setDisplayUser] = useState({});
-
+    
     const getUser = async () => {
         const res = await fetch(`${apiLink}/users?id=${id}`, {
             method: "GET",
@@ -25,7 +25,7 @@ const Profile = () => {
     useEffect(() => {
         if(id == user._id) {
             setDisplayUser(user);
-        } else {
+        } else {           
             getUser();
         }
     }, [id])
