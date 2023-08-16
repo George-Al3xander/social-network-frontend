@@ -422,7 +422,7 @@ nav ul {
   background-color: var(--clr-accent);  
   margin-left: .5rem;
   border-radius: .5rem;
-  width: min(15rem, 100%);
+  min-width: 15rem0;
   position: relative;
 }
 
@@ -800,6 +800,36 @@ form .avatar {
   opacity: .7;
 }
 
+.friends-profile {
+  display: flex;
+  gap: 1rem;
+  padding-block: 2rem;
+  flex-wrap: wrap;
+  
+}
+
+.profile-preview-friend {
+  font-weight: 600;
+  font-size: var(--fs-medium);
+  text-align: center; 
+
+}
+
+.profile-preview-friend .avatar {
+  border-radius: .5rem;
+  width: 10rem;
+}
+
+.profile-preview-friend .avatar:hover {
+  opacity: .7;
+  cursor: pointer;
+}
+
+.profile-preview-friend h2:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 
 @media (min-width: 40rem ) {
   nav {
@@ -856,6 +886,8 @@ form .avatar {
 
   .profile-info {
     flex-direction: column;
+    text-align: center;
+    padding: .5rem 1rem;
   }
 
   .profile-info button {

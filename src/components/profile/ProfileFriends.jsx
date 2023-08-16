@@ -1,6 +1,7 @@
 import { Context } from "../../context"
 import { useState, useContext, useEffect} from "react"
 import { useParams } from "react-router-dom"
+import ProfilePreviewFriend from "./ProfilePreviewFriend"
 
 
 const ProfileFriends = () => {
@@ -27,15 +28,14 @@ const ProfileFriends = () => {
     useEffect(() => {
         getFriends();
     }, [])
-    return(<div className="container profile-container">
-        <h1>Hello 11</h1>
+    return(<div className="container profile-container">        
         <div className="list-friends">
-            <ul>
+            <h1>Friends</h1>
+            <ul className="friends-profile">
                 {friends.length > 0 ?
                     friends.map((fr) => {
-                        return <h2>{fr.name.first}</h2>
+                        return <ProfilePreviewFriend profile={fr} />
                     })
-
                 :
                 null
                 }
