@@ -20,7 +20,8 @@ function App() {
   const [user, setUser] = useState(null);  
   const apiLink = "http://192.168.0.111:3000";
   const navigate = useNavigate();
-  const [createPostFormStatus, setCreatePostFormStatus] = useState(false)
+  const [createPostFormStatus, setCreatePostFormStatus] = useState(false);
+  const [token, setToken] = useState("");
   const [editPostFormStatus, setEditPostFormStatus] = useState(false)
   const [editPostFormValue, setEditPostFormValue] = useState({postId: "", text: ""})
 
@@ -30,12 +31,17 @@ function App() {
   };
 
   const getUser = () => {
+    const token = new URLSearchParams(window.location.search).get("token")
+    console.log(token)
+    setToken(token)    
+    window.history.pushState({}, null, "/")
     fetch(`${apiLink}/auth/login/success`, {
       method: "GET",
       credentials: "include",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        "Authorization" : `Bearer ${token}`,
         "Access-Control-Allow-Credentials": true,
       },
     })
@@ -44,7 +50,7 @@ function App() {
         throw new Error("authentication has been failed!");
       })
       .then((resObject) => {
-        console.log(resObject.user)
+        console.log(resObject)
         setUser(resObject.user);
       })
       .catch((err) => {
@@ -62,7 +68,7 @@ function App() {
   }
   
   return (
-    <Context.Provider value={{user, setUser, apiLink, google, navigate, setEditPostFormStatus, editPostFormValue, showEditPostForm, getUser}}>
+    <Context.Provider value={{user, setUser, apiLink, google, navigate, setEditPostFormStatus, editPostFormValue, showEditPostForm, getUser, token}}>
         {user ? <NavBar setCreatePostFormStatus={setCreatePostFormStatus}/> : null}
           {createPostFormStatus ? <CreatePostForm setCreatePostFormStatus={setCreatePostFormStatus} /> : null}
           {editPostFormStatus ? <EditPostForm setEditPostFormStatus={setEditPostFormStatus} /> : null}
@@ -72,7 +78,9 @@ function App() {
           :
           <Navigate to="/login" />
           } />
+
           <Route path="/login" element={user ? <Navigate to="/" /> : <Login />}/>
+          
           <Route path="/register" element={user ? <Navigate to="/" /> : <Register />}/>          
           <Route path="/settings" element={user ? <Settings /> : <Navigate to="/login" />}/>
           <Route path="/friends" element={user ? <Friends /> : <Navigate to="/login" />}>

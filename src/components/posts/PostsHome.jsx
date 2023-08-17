@@ -3,16 +3,14 @@ import { useContext, useEffect, useState } from "react";
 import CreatePostBlock from "../CreatePostBlock";
 import Post from "./Post";
 const PostsHome = ({setCreatePostFormStatus}) => {
-    const {apiLink} = useContext(Context);
+    const {apiLink,token} = useContext(Context);
     const [posts, setPosts] = useState([]);
     const getFeed = async () => {
         const res = await fetch(`${apiLink}/posts/feed`, {
           method: "GET",
           credentials: "include",
           headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Credentials": true,
+            "Authorization" : `Bearer ${token}`,
           },
         })  
         const data = await res.json();
