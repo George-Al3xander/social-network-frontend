@@ -18,7 +18,7 @@ import Profile from './components/profile/Profile';
 function App() {
   
   const [user, setUser] = useState(null);  
-  const apiLink = "https://social-network-backend-iffo.onrender.com";
+  const apiLink = "http://192.168.0.111:3000";
   const navigate = useNavigate();
   const [createPostFormStatus, setCreatePostFormStatus] = useState(false)
   const [editPostFormStatus, setEditPostFormStatus] = useState(false)
@@ -29,8 +29,7 @@ function App() {
     window.open(`${apiLink}/auth/google`, "_self");
   };
 
-  const getUser = async  () => {
-    const response =  await
+  const getUser = () => {
     fetch(`${apiLink}/auth/login/success`, {
       method: "GET",
       credentials: "include",
@@ -40,13 +39,17 @@ function App() {
         "Access-Control-Allow-Credentials": true,
       },
     })
-    if (response.status === 200) {
-      const resObject = await response.json();
-      setUser(await resObject.user);
-    } else {
-      throw new Error("authentication has been failed!");
-    }
-     
+      .then((response) => {
+        if (response.status === 200) return response.json();
+        throw new Error("authentication has been failed!");
+      })
+      .then((resObject) => {
+        console.log(resObject.user)
+        setUser(resObject.user);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {    
