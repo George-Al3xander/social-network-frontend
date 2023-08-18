@@ -112,7 +112,7 @@ function App() {
               <Route path={""} element={<ProfileHome setCreatePostFormStatus={setCreatePostFormStatus}/>} />
               <Route path={"friends"} element={<ProfileFriends />} />
           </Route>
-        </Routes> 
+        </Routes>         
     </Context.Provider>
   )
 }

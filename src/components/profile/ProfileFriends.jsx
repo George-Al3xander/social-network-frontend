@@ -8,7 +8,9 @@ const ProfileFriends = () => {
     const {apiLink, token} = useContext(Context)
     const [friends, setFriends] = useState([]);
     const {id} = useParams();
-    const getFriends = async () => {
+    const [isLoading, setIsLoading] = useState(true)
+    const getFriends = async () => {        
+        setIsLoading(true)
         const res = await fetch(`${apiLink}/friendships?userId=${id}`, {
             method: "GET",
             credentials: "include",
@@ -23,7 +25,7 @@ const ProfileFriends = () => {
         const data = await res.json();     
         console.log(data.friends)   
         setFriends(data.friends)
-      
+        setIsLoading(false)
     }
 
     useEffect(() => {
@@ -33,7 +35,10 @@ const ProfileFriends = () => {
         <div className="list-friends">
             <h1>Friends</h1>
             <ul className="friends-profile">
-                {friends.length > 0 ?
+                {isLoading ?
+                <div className="spinner"></div>
+                :                
+                friends.length > 0 ?
                     friends.map((fr) => {
                         return <ProfilePreviewFriend profile={fr} />
                     })

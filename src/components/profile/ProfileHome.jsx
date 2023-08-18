@@ -7,7 +7,10 @@ const ProfileHome = ({setCreatePostFormStatus}) => {
     const {id} = useParams()
     const {user, apiLink, token} = useContext(Context)
     const [posts, setPosts] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+
     const getPosts = async () => {
+        setIsLoading(true)
         const res = await fetch(`${apiLink}/posts?userId=${id}`, {
             method: "GET",
             credentials: "include",
@@ -22,6 +25,7 @@ const ProfileHome = ({setCreatePostFormStatus}) => {
         const data = await res.json();
         console.log(data)
         setPosts(data.posts)
+        setIsLoading(false)
     }
     useEffect(() => {
         getPosts();
@@ -29,10 +33,17 @@ const ProfileHome = ({setCreatePostFormStatus}) => {
     return(<div className="container profile-container">
 
         <div className="post-warning"><h1>Posts</h1></div>
-        {id == user._id ? <CreatePostBlock setCreatePostFormStatus={setCreatePostFormStatus} /> : null}
-        {posts.length > 0 ? posts.slice(0).reverse().map((post) => {
-                return <Post setPosts={setPosts} posts={posts} post={post}/>
-        }) : null}
+        {isLoading ?
+        <div className="spinner"></div>
+        :
+        <>
+            {id == user._id ? <CreatePostBlock setCreatePostFormStatus={setCreatePostFormStatus} /> : null}
+            {posts.length > 0 ? posts.slice(0).reverse().map((post) => {
+                    return <Post setPosts={setPosts} posts={posts} post={post}/>
+            }) : <h2>No posts</h2>}
+        </>
+        }
+        
     </div>)
 }
 

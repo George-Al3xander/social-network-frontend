@@ -8,9 +8,12 @@ const Settings = () => {
     const passwordValid = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
     const blankValid = new RegExp(/\S/);
     const [errorMsg, setErrorMsg] = useState("");
+    const [congratsMsg, setCongratsMsg] = useState("");
     const [emailStatus, setEmailStatus] = useState(true);
     const [firstNameStatus, setFirstNameStatus] = useState(true);
     const [lastNameStatus, setLastNameStatus] = useState(true);
+    const [isLoading, setIsLoading] = useState(false)
+
     const [displayAvatar, setDisplayAvatar] = useState(user.avatar) 
     function convertToBase64(file){
         return new Promise((resolve, reject) => {
@@ -71,6 +74,7 @@ const Settings = () => {
         updateObj = {...updateObj, name}
       }
       if(Object.keys(updateObj).length > 0) {
+        setIsLoading(true)
         const res = await fetch(`${apiLink}/users`, {
           method: "PUT",
           credentials: "include",
@@ -87,11 +91,12 @@ const Settings = () => {
         const data = await res.json();
         if(res.status == 200) {
           setErrorMsg("")
+          setCongratsMsg(data.msg)
           getUser();
         } else {
           setErrorMsg(data.msg)
         }
-        console.log(data)
+        setIsLoading(false)
 
       }      
     }
@@ -137,7 +142,18 @@ const Settings = () => {
             <label htmlFor="password-confirm">Confirm password</label>
             <input required name="password" id="password-confirm" type="password" />
           </fieldset>         */}
-          <div className="buttons">
+            {congratsMsg.length > 0 ?
+            <div onClick={() => {
+              setCongratsMsg("")
+            }} className="msg-congrats">User updated <svg xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30"><path d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"/></svg></div>        
+            :
+            null
+            }
+
+            {isLoading ? 
+            <div className="spinner"></div>
+            :
+            <div className="buttons">
             {!emailStatus || !firstNameStatus || !lastNameStatus 
             
             ? 
@@ -145,7 +161,9 @@ const Settings = () => {
             <button disabled className="btn-disabled">Save changes</button> 
             : 
             <button>Save changes</button> }           
-          </div>          
+          </div>
+            }
+            
         </form>        
         </div>
     )

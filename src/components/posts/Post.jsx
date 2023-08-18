@@ -8,9 +8,12 @@ const Post = ({post, setPosts, posts}) => {
     const [commentsStatus, setCommentsStatus] = useState(false)
     const [comments, setComments] = useState([]);
     const [menuStatus, setMenuStatus] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+
     const [likes, setLikes] = useState({});
     const {apiLink, user,  showEditPostForm, token} = useContext(Context)
     const getComments = async () => {
+        setIsLoading(true);
         const res = await fetch(`${apiLink}/posts/${post._id}/comments`, {
           method: "GET",
           credentials: "include",
@@ -27,6 +30,8 @@ const Post = ({post, setPosts, posts}) => {
         } else {
             console.log("Error")
         }
+        setIsLoading(false);
+
     }
     
     const getLikes = async () => {
@@ -174,7 +179,13 @@ const Post = ({post, setPosts, posts}) => {
                     setCommentsStatus((prev) => !prev)
                 }}>Comment</button>
             </div>
-                {commentsStatus ? <Comments post={post}  getComments={getComments} comments={comments} /> : null
+                {commentsStatus ? 
+                isLoading ?
+                <div className="spinner"></div>
+                :
+                <Comments post={post}  getComments={getComments} comments={comments} /> 
+                : 
+                null
             }            
         </div> 
     </div>)

@@ -7,8 +7,10 @@ const Profile = () => {
     const {user, apiLink, token} = useContext(Context)
 
     const [displayUser, setDisplayUser] = useState({});
+    const [isLoading, setIsLoading] = useState(true)
     
     const getUser = async () => {
+        setIsLoading(true)
         const res = await fetch(`${apiLink}/users?id=${id}`, {
             method: "GET",
             credentials: "include",
@@ -24,6 +26,7 @@ const Profile = () => {
         if(res.status == 200) {
             setDisplayUser(data.user)
         }
+        setIsLoading(false)
     }
     useEffect(() => {
         if(id == user._id) {
@@ -34,7 +37,10 @@ const Profile = () => {
     }, [id])
     return(
     <>
-        {Object.keys(displayUser).length > 0 ?
+        {isLoading ?
+        <div className="spinner"></div>
+        :
+        Object.keys(displayUser).length > 0 ?
         <>
         <ProfileHeader user={displayUser} />
         <Outlet />

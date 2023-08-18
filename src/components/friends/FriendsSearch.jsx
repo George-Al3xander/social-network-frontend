@@ -6,7 +6,10 @@ const FriendsSearch = () => {
     const [searchKey, setSearchKey] = useState("")
     const {apiLink,token} = useContext(Context)
     const [results, setResults] = useState([]);
+    const [isLoading, setIsLoading] = useState(false)
+
     const search = async () => {
+        setIsLoading(true)
         const res = await fetch(`${apiLink}/users/search?searchKey=${searchKey}`, {
             method: "GET",
             credentials: "include",
@@ -20,12 +23,13 @@ const FriendsSearch = () => {
 
         const data = await res.json();
         setResults(data.data)
+        setIsLoading(false)
        
     }
     useEffect(() => {
         if(blankValid.test(searchKey)) {
             search();
-        }
+        } 
     },[searchKey])
 
     return(<div className="container container-friends">
@@ -36,7 +40,10 @@ const FriendsSearch = () => {
             <div className="list-friends">
                 <h1>Search results</h1>
                     <ul className="list-friends-results">
-                        {results.length > 0 ? 
+                        {isLoading ?
+                        <div className="spinner"></div>
+                        :
+                        results.length > 0 ? 
                         blankValid.test(searchKey) ?
                         results.map((res) => {
                             return <ProfilePreview profile={res}/>
@@ -44,6 +51,9 @@ const FriendsSearch = () => {
                         : <h1>No results</h1>
                         : <h1>No results</h1>
                         }
+                        
+                       
+                        
                     </ul>
             </div>
     </div>)
