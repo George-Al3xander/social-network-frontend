@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react"
 import ProfileHeader from "./ProfileHeader"
 const Profile = () => {
     const {id} = useParams()
-    const {user, apiLink} = useContext(Context)
+    const {user, apiLink, token} = useContext(Context)
 
     const [displayUser, setDisplayUser] = useState({});
     
@@ -14,6 +14,7 @@ const Profile = () => {
             credentials: "include",
             headers: {
             Accept: "application/json",
+            "Authorization" : `Bearer ${token}`,
             "Content-Type": "application/json",
             "Access-Control-Allow-Credentials": true,
             },

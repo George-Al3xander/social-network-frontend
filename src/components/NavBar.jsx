@@ -42,6 +42,7 @@ const NavBar = ({setCreatePostFormStatus}) => {
                     </li>
                     </Link>
                     <li  onClick={() => {
+                        localStorage.removeItem("token")
                         window.open(`${apiLink}/auth/logout`, "_self");
                       }}
                        

@@ -8,7 +8,7 @@ const Comment = ({comment, getComments}) => {
     const valid = new RegExp(/\S/);
     const [validStatus, setValidStatus] = useState(true);
     const [commentText, setCommentsText] = useState(comment.text)
-    const {user, apiLink} = useContext(Context);
+    const {user, apiLink, token} = useContext(Context);
 
 
     const editComment = async (e) => {
@@ -18,6 +18,7 @@ const Comment = ({comment, getComments}) => {
             credentials: "include",
             headers: {
                 Accept: "application/json",
+                "Authorization" : `Bearer ${token}`,
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Credentials": true,
             },
@@ -43,6 +44,7 @@ const Comment = ({comment, getComments}) => {
             credentials: "include",
             headers: {
                 Accept: "application/json",
+                "Authorization" : `Bearer ${token}`,
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Credentials": true,
             },

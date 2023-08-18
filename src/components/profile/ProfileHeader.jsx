@@ -8,7 +8,7 @@ import FriendBtn from "../friends/FriendBtn"
 const ProfileHeader = ({user}) => {
     const {id} = useParams()
     const [friendStatus, setFriendStatus] = useState({});
-    const {apiLink} = useContext(Context)
+    const {apiLink, token} = useContext(Context)
     const currUserId = useContext(Context).user._id
     const getStatus = async () => {
         const res = await fetch(`${apiLink}/friendships/status?userId=${user._id}`, {
@@ -16,6 +16,7 @@ const ProfileHeader = ({user}) => {
             credentials: "include",
             headers: {
             Accept: "application/json",
+            "Authorization" : `Bearer ${token}`,
             "Content-Type": "application/json",
             "Access-Control-Allow-Credentials": true,
             },

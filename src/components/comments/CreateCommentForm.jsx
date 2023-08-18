@@ -5,7 +5,7 @@ import defaultAvatar from "../../assets/default_avatar.jpg"
 
 const CreateCommentForm = ({post, getComments}) => {
     const [commentText, setCommentsText] = useState("")
-    const {user, apiLink} = useContext(Context);
+    const {user, apiLink,token} = useContext(Context);
     const valid = new RegExp(/\S/);
     const [validStatus, setValidStatus] = useState(false);
     const createComment = async (e) => {
@@ -15,6 +15,7 @@ const CreateCommentForm = ({post, getComments}) => {
             credentials: "include",
             headers: {
                 Accept: "application/json",
+                "Authorization" : `Bearer ${token}`,
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Credentials": true,
             },

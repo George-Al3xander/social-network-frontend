@@ -9,13 +9,14 @@ const Post = ({post, setPosts, posts}) => {
     const [comments, setComments] = useState([]);
     const [menuStatus, setMenuStatus] = useState(false)
     const [likes, setLikes] = useState({});
-    const {apiLink, user,  showEditPostForm} = useContext(Context)
+    const {apiLink, user,  showEditPostForm, token} = useContext(Context)
     const getComments = async () => {
         const res = await fetch(`${apiLink}/posts/${post._id}/comments`, {
           method: "GET",
           credentials: "include",
           headers: {
             Accept: "application/json",
+            "Authorization" : `Bearer ${token}`,
             "Content-Type": "application/json",
             "Access-Control-Allow-Credentials": true,
           },
@@ -34,6 +35,7 @@ const Post = ({post, setPosts, posts}) => {
           credentials: "include",
           headers: {
             Accept: "application/json",
+            "Authorization" : `Bearer ${token}`,
             "Content-Type": "application/json",
             "Access-Control-Allow-Credentials": true,
           },
@@ -53,6 +55,7 @@ const Post = ({post, setPosts, posts}) => {
             credentials: "include",
             headers: {
               Accept: "application/json",
+              "Authorization" : `Bearer ${token}`,
               "Content-Type": "application/json",
               "Access-Control-Allow-Credentials": true,
             },
@@ -73,6 +76,7 @@ const Post = ({post, setPosts, posts}) => {
             credentials: "include",
             headers: {
               Accept: "application/json",
+              "Authorization" : `Bearer ${token}`,
               "Content-Type": "application/json",
               "Access-Control-Allow-Credentials": true,
             },
@@ -93,6 +97,7 @@ const Post = ({post, setPosts, posts}) => {
             credentials: "include",
             headers: {
                 Accept: "application/json",
+                "Authorization" : `Bearer ${token}`,
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Credentials": true,
             },

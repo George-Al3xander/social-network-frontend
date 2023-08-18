@@ -31,17 +31,31 @@ function App() {
   };
 
   const getUser = () => {
-    const token = new URLSearchParams(window.location.search).get("token")
-    console.log(token)
-    setToken(token)    
-    window.history.pushState({}, null, "/")
-    fetch(`${apiLink}/auth/login/success`, {
+    const tokenParams = new URLSearchParams(window.location.search).get("token")
+    const tokenStorage = localStorage.getItem("token")
+    let apiPath;
+    let tokenPassed;
+    if(tokenParams) {
+      setToken(tokenParams)  
+      localStorage.setItem("token", tokenParams)  
+      window.history.pushState({}, null, "/")
+      tokenPassed = tokenParams;
+      apiPath = `${apiLink}/auth/login/success`;
+    } else if (tokenStorage){
+      setToken(tokenStorage)
+      //console.log(tokenStorage)
+      tokenPassed = tokenStorage;
+      apiPath = `${apiLink}/users/current`;
+      
+        
+    }
+    fetch(`${apiLink}/users/current`, {
       method: "GET",
       credentials: "include",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        "Authorization" : `Bearer ${token}`,
+        "Authorization" : `Bearer ${tokenPassed}`,
         "Access-Control-Allow-Credentials": true,
       },
     })
@@ -50,17 +64,22 @@ function App() {
         throw new Error("authentication has been failed!");
       })
       .then((resObject) => {
-        console.log(resObject)
+        //console.log(resObject)
         setUser(resObject.user);
       })
       .catch((err) => {
         console.log(err);
       });
+    
   };
 
   useEffect(() => {    
-    getUser();
+    getUser();    
   }, []);
+
+  useEffect(() => {
+
+  }, [user])
 
   const showEditPostForm = (id, text) => {
     setEditPostFormValue({postId: id,text});

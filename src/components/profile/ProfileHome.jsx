@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react"
 import Post from "../posts/Post"
 const ProfileHome = ({setCreatePostFormStatus}) => {
     const {id} = useParams()
-    const {user, apiLink} = useContext(Context)
+    const {user, apiLink, token} = useContext(Context)
     const [posts, setPosts] = useState([])
     const getPosts = async () => {
         const res = await fetch(`${apiLink}/posts?userId=${id}`, {
@@ -13,6 +13,7 @@ const ProfileHome = ({setCreatePostFormStatus}) => {
             credentials: "include",
             headers: {
             Accept: "application/json",
+            "Authorization" : `Bearer ${token}`,
             "Content-Type": "application/json",
             "Access-Control-Allow-Credentials": true,
             },

@@ -3,7 +3,7 @@ import { useContext, useState , useRef} from "react"
 import { Link } from "react-router-dom";
 import defaultAvatar from "../assets/default_avatar.jpg"
 const Settings = () => {
-    const {user, apiLink, getUser} = useContext(Context);
+    const {user, apiLink, getUser, token} = useContext(Context);
     const emailValid = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
     const passwordValid = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
     const blankValid = new RegExp(/\S/);
@@ -76,6 +76,7 @@ const Settings = () => {
           credentials: "include",
           headers: {
             Accept: "application/json",
+            "Authorization" : `Bearer ${token}`,
             "Content-Type": "application/json",
             "Access-Control-Allow-Credentials": true,
           },

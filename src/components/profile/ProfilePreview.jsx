@@ -5,7 +5,7 @@ import { Context } from "../../context"
 import FriendBtn from "../friends/FriendBtn"
 
 const ProfilePreview = ({profile}) => {
-    const {apiLink} = useContext(Context)
+    const {apiLink, token} = useContext(Context)
     const [friendStatus, setFriendStatus] = useState({});
 
     const getStatus = async () => {
@@ -14,6 +14,7 @@ const ProfilePreview = ({profile}) => {
             credentials: "include",
             headers: {
             Accept: "application/json",
+            "Authorization" : `Bearer ${token}`,
             "Content-Type": "application/json",
             "Access-Control-Allow-Credentials": true,
             },

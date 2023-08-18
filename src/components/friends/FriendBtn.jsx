@@ -4,7 +4,7 @@ import { Context } from "../../context";
 
 
 const FriendBtn = ({friendStatus, friendId, getStatus}) => {       
-    const {apiLink} = useContext(Context);
+    const {apiLink,token} = useContext(Context);
     const addFriend = async () => {
         const res = await fetch(`${apiLink}/friendships`, {
             method: "POST",
@@ -12,6 +12,7 @@ const FriendBtn = ({friendStatus, friendId, getStatus}) => {
             headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            "Authorization" : `Bearer ${token}`,
             "Access-Control-Allow-Credentials": true,
             },
             body: JSON.stringify({friendId})
@@ -30,6 +31,7 @@ const FriendBtn = ({friendStatus, friendId, getStatus}) => {
             headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            "Authorization" : `Bearer ${token}`,
             "Access-Control-Allow-Credentials": true,
             },
             body: JSON.stringify({friendId})
@@ -49,6 +51,7 @@ const FriendBtn = ({friendStatus, friendId, getStatus}) => {
             headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            "Authorization" : `Bearer ${token}`,
             "Access-Control-Allow-Credentials": true,
             },
             body: JSON.stringify({friendId})

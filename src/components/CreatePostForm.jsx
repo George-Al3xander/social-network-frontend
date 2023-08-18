@@ -1,21 +1,48 @@
 import { Context } from "../context"
-import { useContext, useState } from "react"
+import { useContext, useRef, useState } from "react"
 import defaultAvatar from "../assets/default_avatar.jpg"
-
+import { useLocation } from "react-router-dom"
 
 
 const CreatePostForm = ({setCreatePostFormStatus}) => {
-    const {user, apiLink} = useContext(Context);
+    const {user, apiLink, token} = useContext(Context);
     const valid = new RegExp(/\S/);
     const [validStatus, setValidStatus] = useState(false)
+    const location = useLocation();
+    //console.log(location)
+    const form = useRef();
+
+
+
 
     
+
+    const createPost = async (e) => {
+        //e.preventDefault();
+        const formData = new FormData(form.current);
+        const text = formData.get("text").trim();
+        const res = await fetch(`${apiLink}/posts`, {
+            method: "POST",  
+            headers: {
+                Accept: "application/json",
+                "Authorization" : `Bearer ${token}`,
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Credentials": true,
+            },
+            body: JSON.stringify({text})
+        })
+        if(res.status == 200) {
+            form.current.reset();
+            setCreatePostFormStatus(false);
+            location.reload();
+        }
+    }
     return (<div onClick={(e) => {
         if(e.target.className === "background-create-post-form") {
             setCreatePostFormStatus(false)
         }
     }} className="background-create-post-form">
-        <form action={`${apiLink}/posts`} method="POST" className="create-post-form">
+        <form ref={form} onSubmit={createPost} className="create-post-form">
             <div className="cpf-header">
             <h1>Create a post</h1>
             <svg onClick={() => {

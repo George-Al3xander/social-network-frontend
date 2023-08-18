@@ -5,7 +5,7 @@ import ProfilePreviewFriend from "./ProfilePreviewFriend"
 
 
 const ProfileFriends = () => {
-    const {apiLink} = useContext(Context)
+    const {apiLink, token} = useContext(Context)
     const [friends, setFriends] = useState([]);
     const {id} = useParams();
     const getFriends = async () => {
@@ -14,6 +14,7 @@ const ProfileFriends = () => {
             credentials: "include",
             headers: {
             Accept: "application/json",
+            "Authorization" : `Bearer ${token}`,
             "Content-Type": "application/json",
             "Access-Control-Allow-Credentials": true,
             },

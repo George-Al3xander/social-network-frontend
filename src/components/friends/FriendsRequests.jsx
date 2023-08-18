@@ -2,7 +2,7 @@ import { Context } from "../../context"
 import { useState, useContext, useEffect } from "react"
 import ProfilePreview from "../profile/ProfilePreview";
 const FriendsRequests = () => {
-    const {apiLink} = useContext(Context)
+    const {apiLink,token} = useContext(Context)
     const [sent, setSent] = useState([]);
     const [incoming, setIncoming] = useState([]);
     const getRequests = async () => {
@@ -11,6 +11,7 @@ const FriendsRequests = () => {
             credentials: "include",
             headers: {
             Accept: "application/json",
+            "Authorization" : `Bearer ${token}`,
             "Content-Type": "application/json",
             "Access-Control-Allow-Credentials": true,
             },

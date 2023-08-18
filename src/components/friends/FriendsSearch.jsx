@@ -4,13 +4,14 @@ import ProfilePreview from "../profile/ProfilePreview";
 const FriendsSearch = () => {
     const blankValid = new RegExp(/\S/);
     const [searchKey, setSearchKey] = useState("")
-    const {apiLink} = useContext(Context)
+    const {apiLink,token} = useContext(Context)
     const [results, setResults] = useState([]);
     const search = async () => {
         const res = await fetch(`${apiLink}/users/search?searchKey=${searchKey}`, {
             method: "GET",
             credentials: "include",
             headers: {
+            "Authorization" : `Bearer ${token}`,
             Accept: "application/json",
             "Content-Type": "application/json",
             "Access-Control-Allow-Credentials": true,

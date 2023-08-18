@@ -1,21 +1,41 @@
 import { Context } from "../context"
-import { useContext, useState } from "react"
+import { useContext, useState, useRef } from "react"
 import defaultAvatar from "../assets/default_avatar.jpg"
 
 
 
 const EditPostForm = ({setEditPostFormStatus}) => {
-    const {user, apiLink, editPostFormValue} = useContext(Context);
+    const {user, apiLink, editPostFormValue, token} = useContext(Context);
     const valid = new RegExp(/\S/);
+    const form = useRef();
     const [validStatus, setValidStatus] = useState(true)
-
+    const editPost = async (e) => {
+        //e.preventDefault();
+        const formData = new FormData(form.current);
+        const text = formData.get("text").trim();
+        const res = await fetch(`${apiLink}/posts/${editPostFormValue.postId}`, {
+            method: "PUT",  
+            headers: {
+                Accept: "application/json",
+                "Authorization" : `Bearer ${token}`,
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Credentials": true,
+            },
+            body: JSON.stringify({text})
+        })
+        if(res.status == 200) {
+            form.current.reset();
+            setEditPostFormStatus(false);
+            location.reload();
+        }
+    }
     
     return (<div onClick={(e) => {
         if(e.target.className === "background-create-post-form") {
             setEditPostFormStatus(false)
         }
     }} className="background-create-post-form">
-        <form action={`${apiLink}/posts/${editPostFormValue.postId}`} method="POST"  className="create-post-form">
+        <form ref={form} onSubmit={editPost} className="create-post-form">
             <div className="cpf-header">
             <h1>Edit</h1>
             <svg onClick={() => {
