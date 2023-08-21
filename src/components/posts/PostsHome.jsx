@@ -15,7 +15,7 @@ const PostsHome = ({setCreatePostFormStatus}) => {
           },
         })  
         const data = await res.json();
-        console.log(data)
+        //console.log(data)
         setPosts(data.data)
         setIsLoading(false)
     }

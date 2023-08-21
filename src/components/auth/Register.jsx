@@ -20,34 +20,31 @@ const Register = () => {
         first: formData.get("name-first").trim(),
         last: formData.get("name-last").trim(),
       }
-
-      const res = await fetch(`${apiLink}/auth/register`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
-        body: JSON.stringify({
-          name,
-          password,
-          email
-        })
-      })
-      if(res.status == 200) {
-        if(password == confirmPassword) {
+      if(password == confirmPassword) {
+          const res = await fetch(`${apiLink}/auth/register`, {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Credentials": true,
+          },
+          body: JSON.stringify({
+            name,
+            password,
+            email
+          })
+          })
+        if(res.status == 200) {
           setErrorMsg("")
           navigate("/login")
         } else {
-          setErrorMsg("Passwords did't match")
+          const data = await res.json();        
+          setErrorMsg(data.msg)        
         }
       } else {
-        const data = await res.json();
-        //console.log(data)
-        setErrorMsg(data.msg)
-        
-      }
+        setErrorMsg("Passwords did't match")
+      }            
     }
     
     return (

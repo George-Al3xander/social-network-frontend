@@ -27,10 +27,12 @@ const Profile = () => {
             setDisplayUser(data.user)
         }
         setIsLoading(false)
+
     }
     useEffect(() => {
         if(id == user._id) {
             setDisplayUser(user);
+            setIsLoading(false)
         } else {           
             getUser();
         }

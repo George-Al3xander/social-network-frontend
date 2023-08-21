@@ -18,7 +18,7 @@ import Profile from './components/profile/Profile';
 function App() {
   
   const [user, setUser] = useState(null);  
-  const apiLink = "http://192.168.0.111:3000";
+  const apiLink = "https://social-network-backend-iffo.onrender.com";
   const navigate = useNavigate();
   const [createPostFormStatus, setCreatePostFormStatus] = useState(false);
   const [token, setToken] = useState("");
@@ -34,7 +34,7 @@ function App() {
     const tokenParams = new URLSearchParams(window.location.search).get("token")
     const tokenStorage = localStorage.getItem("token")
     let apiPath;
-    let tokenPassed;
+    let tokenPassed;   
     if(tokenParams) {
       setToken(tokenParams)  
       localStorage.setItem("token", tokenParams)  
@@ -45,10 +45,8 @@ function App() {
       setToken(tokenStorage)
       //console.log(tokenStorage)
       tokenPassed = tokenStorage;
-      apiPath = `${apiLink}/users/current`;
-      
-        
-    }
+      apiPath = `${apiLink}/users/current`;    
+    }    
     fetch(`${apiLink}/users/current`, {
       method: "GET",
       credentials: "include",
@@ -59,7 +57,7 @@ function App() {
         "Access-Control-Allow-Credentials": true,
       },
     })
-      .then((response) => {
+      .then((response) => {        
         if (response.status === 200) return response.json();
         throw new Error("authentication has been failed!");
       })
@@ -77,9 +75,6 @@ function App() {
     getUser();    
   }, []);
 
-  useEffect(() => {
-
-  }, [user])
 
   const showEditPostForm = (id, text) => {
     setEditPostFormValue({postId: id,text});
