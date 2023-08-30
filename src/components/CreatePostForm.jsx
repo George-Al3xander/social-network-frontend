@@ -1,15 +1,12 @@
 import { Context } from "../context"
 import { useContext, useRef, useState } from "react"
 import defaultAvatar from "../assets/default_avatar.jpg"
-import { useLocation } from "react-router-dom"
 
 
 const CreatePostForm = ({setCreatePostFormStatus}) => {
     const {user, apiLink, token} = useContext(Context);
     const valid = new RegExp(/\S/);
-    const [validStatus, setValidStatus] = useState(false)
-    const location = useLocation();
-    //console.log(location)
+    const [validStatus, setValidStatus] = useState(false)  
     const form = useRef();
 
 
@@ -18,7 +15,7 @@ const CreatePostForm = ({setCreatePostFormStatus}) => {
     
 
     const createPost = async (e) => {
-        //e.preventDefault();
+        e.preventDefault();
         const formData = new FormData(form.current);
         const text = formData.get("text").trim();
         const res = await fetch(`${apiLink}/posts`, {
@@ -34,7 +31,8 @@ const CreatePostForm = ({setCreatePostFormStatus}) => {
         if(res.status == 200) {
             form.current.reset();
             setCreatePostFormStatus(false);
-            location.reload();
+            window.location.reload();       
+
         }
     }
     return (<div onClick={(e) => {

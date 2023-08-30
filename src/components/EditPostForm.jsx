@@ -10,7 +10,7 @@ const EditPostForm = ({setEditPostFormStatus}) => {
     const form = useRef();
     const [validStatus, setValidStatus] = useState(true)
     const editPost = async (e) => {
-        //e.preventDefault();
+        e.preventDefault();
         const formData = new FormData(form.current);
         const text = formData.get("text").trim();
         const res = await fetch(`${apiLink}/posts/${editPostFormValue.postId}`, {
@@ -25,8 +25,8 @@ const EditPostForm = ({setEditPostFormStatus}) => {
         })
         if(res.status == 200) {
             form.current.reset();
-            setEditPostFormStatus(false);
-            location.reload();
+            setEditPostFormStatus(false);   
+            window.location.reload();        
         }
     }
     

@@ -878,6 +878,15 @@ form .avatar {
   opacity: 1;
 }
 
+.anotation {
+  opacity: .7;
+}
+
+.anotation span {
+  font-style: italic;
+  
+}
+
 
 @media (min-width: 40rem ) {
   nav {

@@ -14,7 +14,8 @@ const Settings = () => {
     const [lastNameStatus, setLastNameStatus] = useState(true);
     const [isLoading, setIsLoading] = useState(false)
 
-    const [displayAvatar, setDisplayAvatar] = useState(user.avatar) 
+    const [displayAvatar, setDisplayAvatar] = useState(user.avatar);
+    const [avatarRemoveStatus, setAvatarRemoveStatus] = useState(false);
     function convertToBase64(file){
         return new Promise((resolve, reject) => {
           const fileReader = new FileReader();
@@ -54,8 +55,14 @@ const Settings = () => {
       const email = formData.get("email").trim();
       let updateObj = {        
       }
-      if(displayAvatar != user.avatar) {
-        updateObj = {...updateObj, avatar: displayAvatar}
+      if(avatarRemoveStatus) {
+        if(displayAvatar != user.avatar) {
+          updateObj = {...updateObj, avatar: false}
+        }
+      } else {
+        if(displayAvatar != user.avatar) {
+          updateObj = {...updateObj, avatar: displayAvatar}
+        }
       }
       if(email != user.email) {
         updateObj = {...updateObj, email}
@@ -110,9 +117,12 @@ const Settings = () => {
         <span><input onChange={handleFileUpload} name="avatar" accept="image/*" type="file" />
         <svg onClick={(e) => {          
           setDisplayAvatar(user.avatar)
+          setAvatarRemoveStatus(false);
+
         }} xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="M259-200v-60h310q70 0 120.5-46.5T740-422q0-69-50.5-115.5T569-584H274l114 114-42 42-186-186 186-186 42 42-114 114h294q95 0 163.5 64T800-422q0 94-68.5 158T568-200H259Z"/></svg>
        <svg onClick={(e) => {          
           setDisplayAvatar(undefined)
+          setAvatarRemoveStatus(true);
         }} xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="M261-120q-24 0-42-18t-18-42v-570h-41v-60h188v-30h264v30h188v60h-41v570q0 24-18 42t-42 18H261Zm106-146h60v-399h-60v399Zm166 0h60v-399h-60v399Z"/></svg>
         
         </span>

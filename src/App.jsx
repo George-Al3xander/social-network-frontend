@@ -18,7 +18,7 @@ import Profile from './components/profile/Profile';
 function App() {
   
   const [user, setUser] = useState(null);  
-  const apiLink = "https://social-network-backend-iffo.onrender.com";
+  const apiLink = "http://192.168.0.111:3000";
   const navigate = useNavigate();
   const [createPostFormStatus, setCreatePostFormStatus] = useState(false);
   const [token, setToken] = useState("");
